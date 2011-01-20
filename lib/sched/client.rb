@@ -16,7 +16,7 @@ module Sched
 		def events
 			unless @events
 				results = FasterCSV.parse(request('event/list', nil, :get))
-				attributes = results.shift.map{|a| a.to_sym}
+				attributes = results.shift.map{|a| a.strip.to_sym}
 				@events = results.map do |row|
 					row_hash = {}
 					attributes.each_with_index do |a, i|
