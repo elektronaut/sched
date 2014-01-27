@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'curb'
+  s.add_dependency 'fastercsv'
 end
