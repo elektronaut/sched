@@ -39,11 +39,15 @@ module Sched
       output = nil
       if method == :post
         post_fields = data.map{|key, value| Curl::PostField.content(key.to_s, value)}
-        c = Curl::Easy.http_post(url, post_fields)
+        c = Curl::Easy.new(url)
+        c.headers["User-Agent"] = "sched-gem"
+        c.http_post(post_fields)
         output = c.body_str
       elsif method == :get
         get_attributes = data.map{|key, value| "#{key}=#{value}" }.join("&")
-        c = Curl::Easy.perform("#{url}?#{get_attributes}")
+        c = Curl::Easy.new("#{url}?#{get_attributes}")
+        c.headers["User-Agent"] = "sched-gem"
+        c.perform
         output = c.body_str
       end
       output
