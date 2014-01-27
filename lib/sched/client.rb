@@ -4,34 +4,34 @@ module Sched
     def initialize(conference, api_key)
       @conference, @api_key = conference, api_key
     end
-    
-    def event(event_key)
-      event = Sched::Event.new(event_key, self)
+
+    def event(session_key)
+      event = Sched::Event.new(session_key, self)
       if event.exists?
-        event = self.events.select{|e| e.event_key == event_key}.first
+        event = self.events.select{|e| e.session_key == session_key}.first
       end
       event
     end
-    
+
     def events
       unless @events
-        results = FasterCSV.parse(request('event/list', nil, :get))
+        results = FasterCSV.parse(request('session/list', nil, :get))
         attributes = results.shift.map{|a| a.strip.to_sym}
         @events = results.map do |row|
           row_hash = {}
           attributes.each_with_index do |a, i|
             row_hash[a] = row[i]
           end
-          event = Sched::Event.new(row_hash[:event_key], self).configure(row_hash)
+          event = Sched::Event.new(row_hash[:session_key], self).configure(row_hash)
         end
       end
       @events
     end
-    
+
     def api_url
       "http://#{@conference}.sched.org/api"
     end
-    
+
     def request(sub_url, data={}, method = :post)
       data ||= {}
       data.merge!({:api_key => @api_key})
