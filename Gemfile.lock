@@ -1,11 +1,13 @@
 PATH
   remote: .
   specs:
-    sched (0.1.0)
+    sched (0.1.1)
+      curb
 
 GEM
   remote: https://rubygems.org/
   specs:
+    curb (0.8.0)
 
 PLATFORMS
   ruby
