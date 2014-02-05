@@ -20,6 +20,7 @@ module Sched
         @events = results.map do |row|
           row_hash = {}
           attributes.each_with_index do |a, i|
+            a = a.to_s.gsub(/^event_/, "session_").to_sym
             row_hash[a] = row[i]
           end
           event = Sched::Event.new(row_hash[:session_key], self).configure(row_hash)
