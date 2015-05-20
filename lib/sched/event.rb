@@ -4,25 +4,14 @@ module Sched
       # Required
       :session_key, :name, :session_start, :session_end, :session_type,
       # Optional
-      :session_subtype, :description, :panelists, :url, :media_url, :venue,
-      :address, :map, :tags, :active,
-      # WTF
-      :event_key
+      :session_subtype, :description, :panelists, :url, :media_url, :venue, :address, :map, :tags, :active
     ]
-    SCHED_ATTRIBUTES.each { |attribute| attr_accessor attribute }
+    SCHED_ATTRIBUTES.each{ |attribute| attr_accessor attribute }
     attr_accessor :client
 
     def initialize(session_key, client=nil)
       @session_key = session_key
       @client = client
-    end
-
-    def event_key
-      session_key
-    end
-
-    def event_key=(new_key)
-      self.session_key = new_key
     end
 
     def get_attribute(key)
