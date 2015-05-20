@@ -16,14 +16,17 @@ module Sched
     def events
       unless @events
         results = FasterCSV.parse(request('session/list', nil, :get))
-        attributes = results.shift.map{|a| a.strip.to_sym}
+
+        attributes = results.shift.map do |a|
+          a.strip.gsub(/[\x80-\xff]/, "").gsub(/^event_/, "session_").to_sym
+        end
+
         @events = results.map do |row|
           row_hash = {}
           attributes.each_with_index do |a, i|
-            a = a.to_s.gsub(/^event_/, "session_").to_sym
             row_hash[a] = row[i]
           end
-          event = Sched::Event.new(row_hash[:session_key], self).configure(row_hash)
+          Sched::Event.new(row_hash[:session_key], self).configure(row_hash)
         end
       end
       @events
