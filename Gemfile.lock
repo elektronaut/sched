@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     sched (0.1.7)
-      curb
+      curb (~> 0.9.3)
 
 GEM
   remote: https://rubygems.org/

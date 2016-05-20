@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = "sched"
   s.version     = Sched::VERSION
   s.date        = "2014-01-20"
-  s.summary     = "SCHED* (http://sched.org) API client library for Ruby"
+  s.summary     = "SCHED* API client library for Ruby"
   s.description = "SCHED* (http://sched.org) API client library for Ruby"
   s.authors     = ["Inge Jørgensen"]
   s.email       = "inge@manualdesign.no"
@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
   s.test_files = Dir["{test,spec}/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "curb"
+  s.add_dependency "curb", "~> 0.9.3"
 end
