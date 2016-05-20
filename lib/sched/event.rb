@@ -4,25 +4,24 @@ module Sched
       # Required
       :session_key, :name, :session_start, :session_end, :session_type,
       # Optional
-      :session_subtype, :description, :panelists, :url, :media_url, :venue, :address, :map, :tags, :active
-    ]
-    SCHED_ATTRIBUTES.each{ |attribute| attr_accessor attribute }
+      :session_subtype, :description, :panelists, :url, :media_url, :venue,
+      :address, :map, :tags, :active
+    ].freeze
+    SCHED_ATTRIBUTES.each { |attribute| attr_accessor attribute }
     attr_accessor :client
 
-    def initialize(session_key, client=nil)
+    def initialize(session_key, client = nil)
       @session_key = session_key
       @client = client
     end
 
     def get_attribute(key)
-      self.send("#{key}")
+      send(key.to_s)
     end
 
-    def configure(options={})
+    def configure(options = {})
       options.each do |key, value|
-        if SCHED_ATTRIBUTES.include?(key)
-          self.send("#{key.to_s}=", value)
-        end
+        send("#{key}=", value) if SCHED_ATTRIBUTES.include?(key)
       end
       self
     end
@@ -30,38 +29,37 @@ module Sched
     def data
       data = {}
       SCHED_ATTRIBUTES.each do |attribute|
-        unless self.get_attribute(attribute) === nil
-          value = self.get_attribute(attribute)
-          value = 'Y' if value === true
-          value = 'N' if value === false
-          data[attribute] = value
-        end
+        next if get_attribute(attribute).nil?
+        value = get_attribute(attribute)
+        value = "Y" if value == true
+        value = "N" if value == false
+        data[attribute] = value
       end
       data
     end
 
     def save
-      if self.exists?
-        self.update
+      if exists?
+        update
       else
-        self.create
+        create
       end
     end
 
     def create
-      self.client.request('session/add', self.data)
+      client.request("session/add", data)
     end
 
     def update
-      self.client.request('session/mod', self.data)
+      client.request("session/mod", data)
     end
 
     def exists?
-      client.events.map{|e| e.session_key}.include?(self.session_key) ? true : false
+      client.events.map(&:session_key).include?(session_key) ? true : false
     end
 
     def destroy
-      self.client.request('session/del', {:session_key => self.session_key})
+      client.request("session/del", session_key: session_key)
     end
   end
 end

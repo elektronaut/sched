@@ -1,5 +1,5 @@
-require 'csv'
-require 'curb'
+require "csv"
+require "curb"
 
-require 'sched/client'
-require 'sched/event'
+require "sched/client"
+require "sched/event"
