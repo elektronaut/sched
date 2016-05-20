@@ -49,10 +49,17 @@ module Sched
       c.body_str
     end
 
-    def parse_sessions(results)
-      attributes = results.shift.map do |a|
-        a.strip.gsub(/[\u0080-\u00ff]/, "").gsub(/^event_/, "session_").to_sym
+    def parse_attributes(attributes)
+      attributes.map do |a|
+        a.force_encoding("UTF-8")
+         .strip.gsub(/[\u0080-\u00ff]/, "")
+         .gsub(/^event_/, "session_")
+         .to_sym
       end
+    end
+
+    def parse_sessions(results)
+      attributes = parse_attributes(results.shift)
       results.map do |row|
         row_hash = {}
         attributes.each_with_index do |a, i|
