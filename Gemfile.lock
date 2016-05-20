@@ -3,13 +3,11 @@ PATH
   specs:
     sched (0.1.6)
       curb
-      fastercsv
 
 GEM
   remote: https://rubygems.org/
   specs:
-    curb (0.8.8)
-    fastercsv (1.5.5)
+    curb (0.9.3)
     rake (10.4.2)
 
 PLATFORMS

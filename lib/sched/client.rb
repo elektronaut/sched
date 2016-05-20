@@ -15,7 +15,7 @@ module Sched
 
     def events
       unless @events
-        results = FasterCSV.parse(request('session/list', nil, :get))
+        results = CSV.parse(request('session/list', nil, :get))
 
         attributes = results.shift.map do |a|
           a.strip.gsub(/[\u0080-\u00ff]/, "").gsub(/^event_/, "session_").to_sym
