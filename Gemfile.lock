@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sched (0.1.6)
+    sched (0.1.7)
       curb
 
 GEM
