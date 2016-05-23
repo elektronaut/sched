@@ -32,10 +32,18 @@ module Sched
 
     private
 
+    def byte_order_mark
+      "\xEF\xBB\xBF".force_encoding("UTF-8")
+    end
+
     def curl_client(path)
       c = Curl::Easy.new("#{api_url}/#{path}")
       c.headers["User-Agent"] = "sched-gem"
       c
+    end
+
+    def encoded(str)
+      str.force_encoding("UTF-8").gsub(byte_order_mark, "")
     end
 
     def full_url(path)
@@ -46,15 +54,12 @@ module Sched
       get_attributes = data.map { |key, value| "#{key}=#{value}" }.join("&")
       c = curl_client("#{path}?#{get_attributes}")
       c.perform
-      c.body_str
+      encoded(c.body_str)
     end
 
     def parse_attributes(attributes)
       attributes.map do |a|
-        a.force_encoding("UTF-8")
-         .strip.gsub(/[\u0080-\u00ff]/, "")
-         .gsub(/^event_/, "session_")
-         .to_sym
+        a.gsub(/^event_/, "session_").to_sym
       end
     end
 
@@ -75,7 +80,7 @@ module Sched
       end
       c = curl_client(path)
       c.http_post(post_fields)
-      c.body_str
+      encoded(c.body_str)
     end
   end
 end
