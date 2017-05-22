@@ -17,7 +17,7 @@ module Sched
     end
 
     def api_url
-      "http://#{@conference}.sched.org/api"
+      "https://#{@conference}.sched.org/api"
     end
 
     def request(path, data = {}, method = :post)
