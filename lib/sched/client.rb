@@ -58,6 +58,7 @@ module Sched
     end
 
     def parse_attributes(attributes)
+      return [] unless attributes
       attributes.map do |a|
         a.gsub(/^event_/, "session_").to_sym
       end
