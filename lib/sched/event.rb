@@ -59,6 +59,7 @@ module Sched
     end
 
     def destroy
+      return unless exists?
       client.request("session/del", session_key: session_key)
     end
   end
