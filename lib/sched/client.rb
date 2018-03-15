@@ -17,7 +17,7 @@ module Sched
     end
 
     def api_url
-      "https://#{@conference}.sched.org/api"
+      "https://#{@conference}.sched.com/api"
     end
 
     def request(path, data = {}, method = :post)
@@ -38,7 +38,7 @@ module Sched
 
     def curl_client(path)
       c = Curl::Easy.new("#{api_url}/#{path}")
-      c.headers["User-Agent"] = "sched-gem"
+      c.headers["User-Agent"] = "sched-gem/#{Sched::VERSION}"
       c
     end
 
