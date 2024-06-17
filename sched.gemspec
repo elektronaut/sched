@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
   s.test_files = Dir["{test,spec}/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "curb", "~> 0.9.3"
+  s.add_dependency "curb"
 end
