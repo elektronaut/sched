@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.summary     = "Sched API client library for Ruby"
   s.description = "Sched (https://sched.com) API client library for Ruby"
   s.authors     = ["Inge Jørgensen"]
-  s.email       = "inge@kord.no"
+  s.email       = "inge@anyone.no"
   s.homepage    = "https://github.com/elektronaut/sched"
   s.license     = "MIT"
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.2")
