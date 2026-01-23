@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module Sched
   class Client
     attr_accessor :conference, :api_key
+
     def initialize(conference, api_key)
       @conference = conference
       @api_key = api_key
@@ -59,6 +62,7 @@ module Sched
 
     def parse_attributes(attributes)
       return [] unless attributes
+
       attributes.map do |a|
         a.gsub(/^event_/, "session_").to_sym
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sched
   class Event
     SCHED_ATTRIBUTES = [
@@ -30,6 +32,7 @@ module Sched
       data = {}
       SCHED_ATTRIBUTES.each do |attribute|
         next if get_attribute(attribute).nil?
+
         value = get_attribute(attribute)
         value = "Y" if value == true
         value = "N" if value == false
@@ -55,11 +58,12 @@ module Sched
     end
 
     def exists?
-      client.events.map(&:session_key).include?(session_key) ? true : false
+      client.events.map(&:session_key).include?(session_key) || false
     end
 
     def destroy
       return unless exists?
+
       client.request("session/del", session_key: session_key)
     end
   end

@@ -1,6 +1,6 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 require "sched/version"
 
 Gem::Specification.new do |s|
@@ -12,15 +12,15 @@ Gem::Specification.new do |s|
   s.email       = "inge@anyone.no"
   s.homepage    = "https://github.com/elektronaut/sched"
   s.license     = "MIT"
-  s.required_ruby_version = Gem::Requirement.new(">= 1.9.2")
+  s.required_ruby_version = Gem::Requirement.new(">= 3.2.0")
 
   s.files = Dir[
     "{app,config,db,lib,vendor}/**/*",
     "Rakefile",
     "README.md"
   ]
-  s.test_files = Dir["{test,spec}/**/*"]
   s.require_paths = ["lib"]
 
   s.add_dependency "curb"
+  s.metadata["rubygems_mfa_required"] = "true"
 end
