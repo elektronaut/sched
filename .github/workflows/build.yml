@@ -18,12 +18,12 @@ jobs:
     timeout-minutes: 10
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1.310.0
         with:
           bundler-cache: true
           ruby-version: "3.4"
@@ -59,12 +59,12 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1.310.0
         with:
           ruby-version: "3.4"
           bundler-cache: true
