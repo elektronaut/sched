@@ -22,5 +22,10 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "curb"
-  s.metadata["rubygems_mfa_required"] = "true"
+  s.metadata = {
+    "bug_tracker_uri" => "https://github.com/elektronaut/sched/issues",
+    "documentation_uri" => "https://www.rubydoc.info/gems/sched",
+    "rubygems_mfa_required" => "true",
+    "source_code_uri" => "https://github.com/elektronaut/sched"
+  }
 end
